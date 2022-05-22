@@ -50,7 +50,7 @@ class LogisticRegression(ClassifierMixin, BaseEstimator):
         self.__b = None  # bias
         self.__w_dict = {}
         self.__b_dict = {}
-        
+        self.__losses = []
     
     # a special method used to represent a class object as a string, called with print() or str()
     def __str__(self):
@@ -85,6 +85,9 @@ class LogisticRegression(ClassifierMixin, BaseEstimator):
     
     def is_fitted(self) -> bool:
         return self.__w is not None
+    
+    def losses(self) -> ndarray:
+        return self.__losses
     
     
     def __sigmoid(self, z: ndarray) -> ndarray:
@@ -259,6 +262,7 @@ class LogisticRegression(ClassifierMixin, BaseEstimator):
           ### ASSIGN THE TRAINED PARAMETERS TO THE PRIVATE ATTRIBUTES
         self.__w = w
         self.__b = b
+        self.__losses = losses
 
     def __predict_proba(self, X: ndarray, w, b) -> ndarray:
         '''Estimate the probability for the positive class of input samples.
